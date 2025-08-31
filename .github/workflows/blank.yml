@@ -32,7 +32,11 @@ jobs:
           REPOSITORY: ${{ env.REPOSITORY_NAME }}
           USERNAME: sangam14
         run: |
-          starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN}
+          starred --username ${USERNAME} \
+                  --repository ${REPOSITORY} \
+                  --sort \
+                  --token ${GITHUB_TOKEN}
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
@@ -45,7 +49,14 @@ jobs:
           REPOSITORY: ${{ env.REPOSITORY_NAME }}
           USERNAME: ${{ github.repository_owner }}
         run: |
-          starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN} --topic --topic_limit 500 --filename topics.md
+          starred --username ${USERNAME} \
+                  --repository ${REPOSITORY} \
+                  --sort \
+                  --token ${GITHUB_TOKEN} \
+                  --topic \
+                  --topic_limit 500 \
+                  --filename topics.md
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add topics.md
