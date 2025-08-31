@@ -24,10 +24,11 @@ jobs:
       run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
     - name: Update repo category by language
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
-        REPOSITORY: ${{ env.REPOSITORY_NAME }}
-        USERNAME: ${{ github.repository_owner }}
-      run: starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN} --message 'Awesome stars category by language update by GitHub Actions cron'
+            REPOSITORY_NAME: my-awesome-stars
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            REPOSITORY: my-awesome-stars
+            USERNAME: sangam14}
+      run: starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN}
     - name: Update repo category by topic
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
