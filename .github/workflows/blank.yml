@@ -11,28 +11,33 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install starred
-    - name: Get repository name
-      run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-    - name: Update repo category by language
-      env:
-            REPOSITORY_NAME: my-awesome-stars
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            REPOSITORY: my-awesome-stars
-            USERNAME: sangam14}
-      run: starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN}
-    - name: Update repo category by topic
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
-        REPOSITORY: ${{ env.REPOSITORY_NAME }}
-        USERNAME: ${{ github.repository_owner }}
-      run: |
-        starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN} --topic --topic_limit 500 --filename topics.md
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install starred
+
+      - name: Get repository name
+        run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
+      - name: Update repo category by language
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ env.REPOSITORY_NAME }}
+          USERNAME: sangam14
+        run: |
+          starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN}
+
+      - name: Update repo category by topic
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          REPOSITORY: ${{ env.REPOSITORY_NAME }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN} --topic --topic_limit 500 --filename topics.md
