@@ -33,6 +33,11 @@ jobs:
           USERNAME: sangam14
         run: |
           starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN}
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Awesome stars category by language update by GitHub Actions cron" || echo "No changes to commit"
+          git push
 
       - name: Update repo category by topic
         env:
@@ -41,3 +46,8 @@ jobs:
           USERNAME: ${{ github.repository_owner }}
         run: |
           starred --username ${USERNAME} --repository ${REPOSITORY} --sort --token ${GITHUB_TOKEN} --topic --topic_limit 500 --filename topics.md
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add topics.md
+          git commit -m "Awesome stars category by topic update by GitHub Actions cron" || echo "No changes to commit"
+          git push
